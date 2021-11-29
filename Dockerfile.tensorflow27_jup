@@ -1,0 +1,39 @@
+ # get our base tensorflow container image from google container repository
+FROM gcr.io/deeplearning-platform-release/tf2-gpu.2-7
+
+# update package lists
+RUN apt-get update -y
+
+# update timezone for Turkey
+ENV TZ="Europe/Istanbul"
+
+### Update packages
+# tzdata - update timezone for Turkey
+# lsof - for getting pid of an application, running at a port
+RUN apt-get install -y --fix-missing --no-install-recommends \
+	tzdata \
+	lsof
+
+# clean lists
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/*  && \
+    apt-get clean && rm -rf /tmp/* /var/tmp/*
+
+### Install additional libraries
+RUN pip install -U tensorboard-plugin-profile
+
+# Create dev user with password 'dev'
+RUN useradd -ms /bin/bash dev
+# RUN echo 'dev:dev' | chpasswd
+
+# open bash / ssh / notebook, if necessary
+
+### Scenario 1 : jupyter
+# set a better workdir for notebooks
+# WORKDIR /tf/notebooks/
+
+# 8888 for jupyterlab, 6006-6010 for tensorboard
+EXPOSE 8888 6006 6007 6008 6009 6010
+
+RUN jupyter lab clean --all
+RUN jupyter lab build --debug
