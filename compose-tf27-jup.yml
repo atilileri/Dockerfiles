@@ -1,0 +1,23 @@
+services:
+  tensorflow27jupyterLab:
+    image: atilileri/tensorflow:tf27jupCompose
+    container_name: tf27JupLab
+    user: root
+    build:
+      context: /home/atililerialkan/Projects/Dockerfiles
+      dockerfile: Dockerfile.tensorflow27_jup
+    ports:
+      - "8888:8888" # jup lab
+      - "6006:6006" # tb instance 1
+      - "6007:6007" # tb instance 2
+      - "6008:6008" # tb instance 3
+      - "6009:6009" # tb instance 4
+      - "6010:6010" # tb instance 5
+    volumes:
+      - ~/Projects:/tf/notebooks
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]

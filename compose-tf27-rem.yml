@@ -1,0 +1,57 @@
+#services:
+#  test:
+#    image: nvidia/cuda:11.1-base
+#    command: nvidia-smi
+#    runtime: nvidia
+    
+#services:
+#  test:
+#    image: nvidia/cuda:11.1-base
+#    command: nvidia-smi
+#    deploy:
+#      resources:
+#        reservations:
+#          devices:
+#            - driver: nvidia
+#              count: 1
+#              capabilities: [gpu]
+   
+#services:
+#  test:
+#    image: tensorflow/tensorflow:latest-gpu
+#    command: python -c "import tensorflow as tf;tf.test.gpu_device_name()"
+#    deploy:
+#      resources:
+#        reservations:
+#          devices:
+#            - capabilities: [gpu]
+
+#services:
+#  tf:
+#    build: Dockerfile.tensorflow27_rem
+#    ports:
+#      - "5000:5000"
+#    volumes:
+#      - .:/code
+
+services:
+  tensorflow27remote:
+    image: atilileri/tensorflow:tf27remCompose
+    container_name: tf27rem
+    user: root
+    environment:
+      MYUSERDATA: "${USER}"
+    build:
+      context: /home/atililerialkan/Projects/Dockerfiles
+      dockerfile: Dockerfile.tensorflow27_rem
+      args:
+        mysampleargument: buildArgTest123
+    ports:
+      - "7776:22" # ssh
+      - "7777:7777" # gdb server
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
