@@ -1,39 +1,3 @@
-#services:
-#  test:
-#    image: nvidia/cuda:11.1-base
-#    command: nvidia-smi
-#    runtime: nvidia
-    
-#services:
-#  test:
-#    image: nvidia/cuda:11.1-base
-#    command: nvidia-smi
-#    deploy:
-#      resources:
-#        reservations:
-#          devices:
-#            - driver: nvidia
-#              count: 1
-#              capabilities: [gpu]
-   
-#services:
-#  test:
-#    image: tensorflow/tensorflow:latest-gpu
-#    command: python -c "import tensorflow as tf;tf.test.gpu_device_name()"
-#    deploy:
-#      resources:
-#        reservations:
-#          devices:
-#            - capabilities: [gpu]
-
-#services:
-#  tf:
-#    build: Dockerfile.tensorflow27_rem
-#    ports:
-#      - "5000:5000"
-#    volumes:
-#      - .:/code
-
 services:
   tensorflow27remote:
     image: atilileri/tensorflow:tf27remCompose
@@ -42,7 +6,7 @@ services:
     environment:
       MYUSERDATA: "${USER}"
     build:
-      context: /home/atililerialkan/Projects/Dockerfiles
+      context: .
       dockerfile: Dockerfile.tensorflow27_rem
       args:
         mysampleargument: buildArgTest123
@@ -55,3 +19,27 @@ services:
           devices:
             - driver: nvidia
               capabilities: [gpu]
+    volumes:
+#      - /tmp/:/tmp/
+      - /logs/:/logs/
+
+  tensorboard:
+    image: atilileri/tensorflow:boardTF27Compose
+    container_name: tbtf27
+    user: root
+#    stdin_open: true # docker run -i
+#    tty: true        # docker run -t
+#    stdin_open: true
+#    entrypoint: /bin/bash
+    build:
+      context: .
+      dockerfile: Dockerfile.tensorboard_tf27
+    ports:
+      - "6006:6006" # tb instance 1
+      - "6007:6007" # tb instance 2
+      - "6008:6008" # tb instance 3
+      - "6009:6009" # tb instance 4
+      - "6010:6010" # tb instance 5
+    volumes:
+#      - /tmp/:/tmp/
+      - /logs/:/logs/
