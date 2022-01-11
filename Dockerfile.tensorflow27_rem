@@ -24,6 +24,11 @@ RUN apt-get clean && \
     apt-get clean && rm -rf /tmp/* /var/tmp/*
 
 ### Install additional libraries
+RUN pip install -U tensorflow_datasets
+RUN pip install -U matplotlib
+RUN pip install -U pyyaml
+RUN pip install -U sklearn
+RUN pip install -U pandas
 
 ### SSH Serving
 # Taken from - https://docs.docker.com/engine/examples/running_ssh_service/#environment-variables
