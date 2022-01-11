@@ -1,6 +1,6 @@
 services:
   tensorflow27remote:
-    image: atilileri/tensorflow:tf27remCompose
+    image: atilileri/tensorflow:tf27rem
     container_name: tf27rem
     user: root
     environment:
@@ -22,9 +22,10 @@ services:
     volumes:
 #      - /tmp/:/tmp/
       - /logs/:/logs/
+      - /data/:/data/
 
   tensorboard:
-    image: atilileri/tensorflow:boardTF27Compose
+    image: atilileri/tensorboard:brdTF27rem
     container_name: tbtf27
     user: root
 #    stdin_open: true # docker run -i
@@ -43,3 +44,4 @@ services:
     volumes:
 #      - /tmp/:/tmp/
       - /logs/:/logs/
+#      - /data/:/data/
