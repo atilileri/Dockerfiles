@@ -14,21 +14,29 @@ ENV TZ="Europe/Istanbul"
 ### Update packages
 # apt-utils build-essential clang cmake gdb gdbserver openssh-server rsync - basic setup
 # tzdata - update timezone for Turkey
+# graphviz - for plotting models
 RUN apt-get install -y --fix-missing --no-install-recommends \
 	apt-utils build-essential clang cmake gdb gdbserver openssh-server rsync \
 	tzdata
+
+RUN apt install -y --fix-missing --no-install-recommends graphviz
 
 # clean lists
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*  && \
     apt-get clean && rm -rf /tmp/* /var/tmp/*
 
-### Install additional libraries
-RUN pip install -U tensorflow_datasets
-RUN pip install -U matplotlib
-RUN pip install -U pyyaml
-RUN pip install -U sklearn
-RUN pip install -U pandas
+### Install additional libraries (versions are stated as a reference at 20220329)
+RUN pip install -U tensorflow_datasets	# 4.5.1
+RUN pip install -U matplotlib			# 3.5.1
+RUN pip install -U pyyaml				# 6.0
+RUN pip install -U sklearn				# 0.0
+RUN pip install -U pandas				# 1.4.0
+RUN pip install -U smote-variants		# 0.4.0
+RUN pip install -U imbalanced-learn		# 0.9.0
+RUN pip install -U pydot				# 1.4.2
+RUN pip install -U pydicom 				# 2.2.2 for dcm2png conversion
+# RUN pip install -U pillow
 
 ### SSH Serving
 # Taken from - https://docs.docker.com/engine/examples/running_ssh_service/#environment-variables

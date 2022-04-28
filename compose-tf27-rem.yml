@@ -3,6 +3,9 @@ services:
     image: atilileri/tensorflow:tf27rem
     container_name: tf27rem
     user: root
+#    stdin_open: true # docker run -i
+#    tty: true        # docker run -t
+#    entrypoint: /bin/bash
     environment:
       MYUSERDATA: "${USER}"
     build:
@@ -22,7 +25,8 @@ services:
     volumes:
 #      - /tmp/:/tmp/
       - /logs/:/logs/
-      - /data/:/data/
+#      - /data/:/data/
+      - /datastore/:/datastore/
 
   tensorboard:
     image: atilileri/tensorboard:brdTF27rem
@@ -30,7 +34,6 @@ services:
     user: root
 #    stdin_open: true # docker run -i
 #    tty: true        # docker run -t
-#    stdin_open: true
 #    entrypoint: /bin/bash
     build:
       context: .
