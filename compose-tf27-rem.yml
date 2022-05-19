@@ -25,6 +25,7 @@ services:
     volumes:
 #      - /tmp/:/tmp/
       - /logs/:/logs/
+      - /docs/midas/:/docs/midas/
 #      - /data/:/data/
       - /datastore/:/datastore/
 

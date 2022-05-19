@@ -37,6 +37,7 @@ RUN pip install -U imbalanced-learn		# 0.9.0
 RUN pip install -U pydot				# 1.4.2
 RUN pip install -U pydicom 				# 2.2.2 for dcm2png conversion
 # RUN pip install -U pillow
+RUN pip install pycco
 
 ### SSH Serving
 # Taken from - https://docs.docker.com/engine/examples/running_ssh_service/#environment-variables
