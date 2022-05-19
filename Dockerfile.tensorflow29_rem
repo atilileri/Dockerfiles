@@ -1,5 +1,5 @@
 # get our base tensorflow container image from tensorflow official docker hub repository
-FROM tensorflow/tensorflow:2.7.0-gpu
+FROM tensorflow/tensorflow:2.9.0-gpu
 
 # print argument (set at docker compose)
 ARG mysampleargument

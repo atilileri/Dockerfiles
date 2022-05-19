@@ -1,7 +1,7 @@
 services:
-  tensorflow27remote:
-    image: atilileri/tensorflow:tf27rem
-    container_name: tf27rem
+  tensorflow29remote:
+    image: atilileri/tensorflow:tf29rem
+    container_name: tf29rem
     user: root
 #    stdin_open: true # docker run -i
 #    tty: true        # docker run -t
@@ -10,7 +10,7 @@ services:
       MYUSERDATA: "${USER}"
     build:
       context: .
-      dockerfile: Dockerfile.tensorflow27_rem
+      dockerfile: Dockerfile.tensorflow29_rem
       args:
         mysampleargument: buildArgTest123
     ports:
@@ -30,15 +30,15 @@ services:
       - /datastore/:/datastore/
 
   tensorboard:
-    image: atilileri/tensorboard:brdTF27rem
-    container_name: tbtf27
+    image: atilileri/tensorboard:brdTF29rem
+    container_name: tbtf29
     user: root
 #    stdin_open: true # docker run -i
 #    tty: true        # docker run -t
 #    entrypoint: /bin/bash
     build:
       context: .
-      dockerfile: Dockerfile.tensorboard_tf27
+      dockerfile: Dockerfile.tensorboard_tf29
     ports:
       - "6006:6006" # tb instance 1
       - "6007:6007" # tb instance 2
